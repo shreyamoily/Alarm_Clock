@@ -1,0 +1,75 @@
+import tkinter
+import datetime
+import time
+import winsound
+
+def stop_sound(): 
+    winsound.PlaySound(None, winsound.SND_ASYNC)
+    
+def alarm(set_alarm_timer):
+    while True:
+        time.sleep(1)
+        current_time = datetime.datetime.now()
+        now = current_time.strftime("%H:%M:%S")
+        date = current_time.strftime("%d/%m/%Y")
+        print("The Set Date is:",date)
+        print(now)
+        if now == set_alarm_timer:
+            y = tkinter.Tk()
+            m = tkinter.Message(y,text = 'Time to wake up',font=("Bold",30),fg = 'dark red')
+            st = tkinter.Button(y,text = 'STOP',command = stop_sound )
+            st.pack(side = tkinter.BOTTOM)
+            m.pack(side = tkinter.TOP)
+            winsound.PlaySound("alarm-sound.wav",winsound.SND_ASYNC+winsound.SND_LOOP)
+            break
+
+def actual_time():
+    set_alarm_timer = f"{e1.get()}:{e2.get()}:{e3.get()}"
+    alarm(set_alarm_timer)
+    
+x = tkinter.Tk()
+x.geometry('350x230')
+l = tkinter.Label(x,text = 'ALARM CLOCK',font = ('Century',30))
+l.pack(side = tkinter.TOP)
+
+L = tkinter.Label(x,text = 'SET TIME',fg = 'black',font=('Barlow',20))
+L.place(x=120,y =60)
+b = tkinter.Button(x,text = 'SET ALARM',fg ='blue',command = actual_time)
+
+l1 = tkinter.Label(x,text = 'Hour',font = ('Barlow',16))
+l2 = tkinter.Label(x,text = 'Min',font = ('Barlow',16))
+l3 = tkinter.Label(x,text = 'Sec',font = ('Barlow',16))
+
+l1.place(x = 20,y = 110)
+l2.place(x = 155,y =110)
+l3.place(x = 290,y = 110)
+b.place(x = 140,y = 200)
+
+hour = ('00', '01', '02', '03', '04', '05', '06', '07',
+         '08', '09', '10', '11', '12', '13', '14', '15',
+         '16', '17', '18', '19', '20', '21', '22', '23')
+e1 = tkinter.StringVar(x)
+e1.set(hour[0])
+h = tkinter.OptionMenu(x,e1,*hour)
+h.place(x = 15, y = 140)
+
+minute = ('00', '01', '02', '03', '04', '05', '06', '07',
+           '08', '09', '10', '11', '12', '13', '14', '15',
+           '16', '17', '18', '19', '20', '21', '22', '23',
+           '24', '25', '26', '27', '28', '29', '30', '31',
+           '32', '33', '34', '35', '36', '37', '38', '39',
+           '40', '41', '42', '43', '44', '45', '46', '47',
+           '48', '49', '50', '51', '52', '53', '54', '55',
+           '56', '57', '58', '59')
+e2 = tkinter.StringVar(x)
+e2.set(minute[0])
+m = tkinter.OptionMenu(x,e2,*minute)
+m.place(x=147, y = 140)
+
+e3 = tkinter.StringVar(x)
+e3.set(minute[0])
+s = tkinter.OptionMenu(x,e3,*minute)
+s.place(x=280, y = 140)
+
+
+x.mainloop()
